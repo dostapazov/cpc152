@@ -1,0 +1,5 @@
+#!/bin/sh
+rmmod aic124
+cp -f ./aic124.ko /lib/modules/$(uname -r)/kernel/drivers/aic124/
+modprobe aic124
+./aic124load start

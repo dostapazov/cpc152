@@ -1,0 +1,67 @@
+#!/bin/sh
+# $Id: dic120_load
+### BEGIN INIT INFO
+# Provides:          dic120
+# Required-Start:    
+# Required-Stop:     
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: make node and for dic120 device driver
+# Description:       
+#                                          
+### END INIT INFO
+
+module="dic120"
+device="dic120"
+mode="666"
+group=dostap
+dev_count=3
+dev_config=/etc/dic120.conf
+
+# Group: since distributions do it differently, look for wheel or use staff
+#if grep -q '^dostap:' /etc/group; then
+#    group="dostap"
+#else
+#    group="root"
+#fi
+
+# invoke insmod with all arguments we got
+# and use a pathname, as insmod doesn't look in . by default
+#/sbin/insmod ./$module.ko  config=${dev_config} $* || exit 1
+
+# retrieve major number
+major=$(awk -v MODULE=$module '$2==MODULE {print $1;}' /proc/devices)
+
+# Remove stale nodes and replace them, then give gid and perms
+# Usually the script is shorter, it's scull that has several devices in it.
+
+chgrp $group /dev/${device}_0
+
+chgrp $group /dev/${device}_[0-$dev_count]
+chmod $mode  /dev/${device}_[0-$dev_count]
+case $1 in
+     start)
+     echo  Initializing DIC120 device driver ...
+     rm -f /dev/${device}_[0-255]
+     for i in $(seq 0 $((dev_count-1)) ) ;do
+     echo make device /dev/${device}_$i  $major-$i
+     mknod /dev/${device}_$i c $major $i 
+     done
+
+     chmod $mode  /dev/${device}_[0-$dev_count]
+     echo Done.
+     ;;
+     stop)
+     rm -f /dev/${device}_[0-255]
+     ;;
+esac
+
+
+echo Done.
+
+
+
+
+
+
+

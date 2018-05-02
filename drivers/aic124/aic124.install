@@ -1,0 +1,17 @@
+#!/bin/sh
+TARGET=aic124
+MOD_PATH=/lib/modules/$(uname -r)/kernel/drivers/${TARGET}
+#if  test -f ${MOD_PATH} ; then
+  mkdir ${MOD_PATH}
+#fi
+echo copy module
+cp -f ${TARGET}.ko ${MOD_PATH}/${TARGET}.ko
+echo copy config
+cp -f ${TARGET}.conf /etc/${TARGET}.conf
+cp -f ${TARGET}load /etc/init.d/${TARGET}load
+echo "#dostapazov@gmail.com Fastwell aic124 device" >> /etc/modules
+echo ${TARGET} >> /etc/modules
+depmod -a
+echo Done.
+update-rc.d ${TARGET}load  defaults
+

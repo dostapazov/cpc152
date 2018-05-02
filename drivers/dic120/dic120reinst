@@ -1,0 +1,5 @@
+#!/bin/sh
+rmmod dic120
+cp -f ./dic120.ko /lib/modules/$(uname -r)/kernel/drivers/dic120/
+modprobe dic120
+./dic120load start

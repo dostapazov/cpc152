@@ -1,0 +1,33 @@
+#!/bin/sh
+EXECUTABLE=cpc152svc
+EXECUTABLE_CONFIG=${EXECUTABLE}.conf
+DAEMON=/usr/sbin/${EXECUTABLE}
+DAEMON_CONFIG=/etc/${EXECUTABLE_CONFIG}
+DAEMON_START=/etc/init.d/${EXECUTABLE}
+
+SHLIB_PATH=/usr/lib
+LNSHLIB1=libcpc152svc-rdopts.so
+LNSHLIB2=libcpc152svc-rdopts.so.1
+LNSHLIB3=libcpc152svc-rdopts.so.1.0
+SHLIB=${LNSHLIB1}.1.0.0
+
+
+echo "install cpc152svc"
+
+echo copy read optons shared library to $SHLIB_PATH
+rm -f ${SHLIB_PATH}/${LNSHLIB1}
+rm -f ${SHLIB_PATH}/${LNSHLIB2}
+rm -f ${SHLIB_PATH}/${LNSHLIB3}
+
+cp --remove-destination ${SHLIB} ${SHLIB_PATH}/${SHLIB}
+ln -s $SHLIB_PATH/$SHLIB  $SHLIB_PATH/$LNSHLIB1
+ln -s $SHLIB_PATH/$SHLIB  $SHLIB_PATH/$LNSHLIB2
+ln -s $SHLIB_PATH/$SHLIB  $SHLIB_PATH/$LNSHLIB3
+
+
+echo "copy cpc152svc to /usr/sbin"
+service $EXECUTABLE stop
+cp --remove-destination ${EXECUTABLE} ${DAEMON}
+cp --remove-destination ${EXECUTABLE}.sh  ${DAEMON_START}
+cp --remove-destination ${EXECUTABLE}.conf ${DAEMON_CONFIG}
+update-rc.d $EXECUTABLE defaults 50

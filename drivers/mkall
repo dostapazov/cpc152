@@ -1,0 +1,10 @@
+#!/bin/sh
+echo "Make all"
+cd aic124
+make 
+cd ../dic120
+make 
+cd ../drv-test
+make 
+cd ..
+

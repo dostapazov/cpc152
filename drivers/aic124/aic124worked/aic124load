@@ -1,0 +1,56 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          aic124
+# Required-Start:    
+# Required-Stop:     
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: make node and for aic124 device driver
+# Description:       
+#                                          
+### END INIT INFO
+
+# Group: since distributions do it differently, look for wheel or use staff
+#if grep -q '^dostap:' /etc/group; then
+#    group="user"
+#else
+#    group="root"
+#fi
+module=aic124
+device=$module
+dev_count=1
+group=user
+mode=666
+
+
+# invoke insmod with all arguments we got
+# and use a pathname, as insmod doesn't look in . by default
+#/sbin/insmod ./$module.ko   $* || exit 1
+
+# retrieve major number
+major=$(awk -v MODULE=$module '$2==MODULE {print $1;}' /proc/devices)
+# Remove stale nodes and replace them, then give gid and perms
+# Usually the script is shorter, it's scull that has several devices in it.
+
+
+
+case $1 in
+     start)
+     echo Initialize aic124 device driveer
+     rm -f /dev/${device}_[0-255]
+     for i in $(seq 0 $((dev_count-1)) ) ;do
+     echo make device /dev/${device}_$i  $major-$i
+     mknod /dev/${device}_$i c $major $i 
+     done
+
+     chmod $mode  /dev/${device}_[0-$dev_count]
+     echo Done.
+     ;;
+     stop)
+     rm -f /dev/${device}_[0-255]
+     ;;
+esac
+
+
+
+

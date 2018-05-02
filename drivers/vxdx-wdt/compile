@@ -1,0 +1,1 @@
+make -C /home/user/src/kernels/linux-source-3.2-rt SUBDIRS=`pwd` modules
