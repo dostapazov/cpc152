@@ -1,6 +1,6 @@
-DEBUG=n
+DEBUG=y
 USR=$(shell whoami)
-INCDIR=/home/$(USR)/include
+INCDIR=/home/$(USR)/sources/cpc152/include
 EXTRA_CFLAGS  := -I$(LDDINCDIR)
 EXTRA_CFLAGS  += -I$(INCDIR)
 TARGET=dic120

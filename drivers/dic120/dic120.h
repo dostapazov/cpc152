@@ -51,7 +51,7 @@ struct dic120_dev_params
 };
 
 
-extern char *  dev_name;
+extern char *  name_dev;
 extern int     dic120_open         (struct inode * pinode,struct file* pfile);
 extern int     dic120_close        (struct inode * pinode,struct file* pfile);
 extern int     dic120_ioctl        (struct inode *inode, struct file *filp, unsigned int cmd,unsigned long arg);

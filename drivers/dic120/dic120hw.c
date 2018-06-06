@@ -468,7 +468,7 @@ dic120dev_resource_init (volatile lpdic120dev dev)
                 dev->base_port + (i * DIC120_BASE_ADDR_PGA_OFFSET);
             dev->resource[i] =
                 request_region (dev->pga_base_port[i], DIC120_DEV_PORT_COUNT,
-                                dev_name);
+                                name_dev);
             if (dev->resource[i])
                 ++dev->resource_requested;
         }
@@ -486,7 +486,7 @@ dic120dev_resource_init (volatile lpdic120dev dev)
                     //if dev->irq_num == 0 than pure scan mode;
                     ret =
                         request_irq (dev->irq_num, __dic120dev_irq_handler,
-                                     SA_SHIRQ, dev_name, dev);
+                                     SA_SHIRQ, name_dev, dev);
                     atomic_set (&dev->irq_handler_installed, ret == 0 ? 1 : 0);
                     if (ret)
                         TRACE (KERN_ALERT, "Error request_irq %d ret code %d\n",

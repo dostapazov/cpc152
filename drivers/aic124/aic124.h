@@ -51,7 +51,7 @@ struct aic124_dev_params
 };
 
 
-extern char *  dev_name;
+extern char *  name_dev;
 extern int     aic124_open         (struct inode * pinode,struct file* pfile);
 extern int     aic124_close        (struct inode * pinode,struct file* pfile);
 extern int     aic124_ioctl        (struct inode *inode, struct file *filp, unsigned int cmd,unsigned long arg);

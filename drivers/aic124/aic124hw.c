@@ -604,7 +604,7 @@ int  aic124dev_resource_init (volatile lpaic124dev dev)
 {
     int ret = 0;
     if(!dev->resource)
-        dev->resource =  request_region(dev->base_port, AIC124_PORT_COUNT,dev_name);
+        dev->resource =  request_region(dev->base_port, AIC124_PORT_COUNT,name_dev);
     if(dev->resource)
     {
         ret = aic124dev_hwread_id(dev);
@@ -612,7 +612,7 @@ int  aic124dev_resource_init (volatile lpaic124dev dev)
         {
             if(0==atomic_read(&dev->irq_handler_installed))
             {
-                ret = request_irq(dev->irq_num,__aic124dev_irq_handler,SA_SHIRQ,dev_name,dev);
+                ret = request_irq(dev->irq_num,__aic124dev_irq_handler,SA_SHIRQ,name_dev,dev);
                 atomic_set(&dev->irq_handler_installed , ret == 0 ? 1 : 0);
                 if(ret) TRACE(KERN_ALERT,"Error request_irq %d ret code %d\n",dev->irq_num,ret);
             }
