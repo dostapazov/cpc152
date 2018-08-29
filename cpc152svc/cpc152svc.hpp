@@ -141,7 +141,7 @@ public:
 
 protected:
     mutex_type              mut;
-    boost::asio::strand     m_strand;
+    boost::asio::io_service::strand     m_strand;
     int                     session_id;
     tserver               * owner;
     as::ip::tcp::socket     socket_;

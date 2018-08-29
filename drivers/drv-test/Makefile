@@ -1,10 +1,10 @@
 LIBVER=1.0
 CC=g++
-INC=../../../../include/
+INC=../../include
 
 
 CFLAGS=-c -Wall -O3 -I$(INC) -std=c++11
-LDFLAGS= -lpthread  -lboost_system #-L../../../../lib -lgk-lib-$(LIBVER)
+LDFLAGS= -lpthread  -lboost_system #-L../../lib -lgk-lib-$(LIBVER)
 
 EXECUTABLE1=aic124test
 EXECUTABLE2=dic120test

@@ -7,7 +7,7 @@ DBGFL= -O1
 
 LIBVER=1.0
 CC=g++
-INC=../../../include
+INC=../include
 CFLAGS  = -pipe -fPIC -c -Wall -W -fexceptions -fshort-wchar -std=c++11 -D_REENTRANT -DRDOPTS_SHARED_LIB $(DBGFL) -I$(INC)
 LIBS    = -lboost_system -L../../../lib -lgk-lib-$(LIBVER)
 LDFLAGS = -shared -Wl,-soname,$(TARGET3) -o $(TARGET) -lc

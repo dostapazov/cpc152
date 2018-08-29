@@ -3,7 +3,7 @@ LIBVER=1.0
 LIBNAME=libgk-lib-$(LIBVER).a 
 
 CC=gcc
-RDIR=../..
+RDIR=..
 INC=$(RDIR)/include
 LDIR=$(RDIR)/lib
 BDIR=$(RDIR)/build
@@ -63,6 +63,7 @@ otd_storage.o : otd_storage.cpp
 calc_kpk.o    :calc_kpk.cpp
 	$(CC) $(CFLAGS) calc_kpk.cpp
 install : libar
+	if [ ! -d $(LDIR) ] ; then mkdir $(LDIR); fi
 	cp --remove-destination $(LIBNAME) $(LDIR)/$(LIBNAME)
        
 	

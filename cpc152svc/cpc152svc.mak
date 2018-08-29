@@ -1,13 +1,13 @@
 LIBVER=1.0
 CC = g++
-INC = ../../../include/
+INC = ../include
 BUILD_DEF=-D_REENTRANT 
 #BUILD_DEF+=-DALARM_WRITE_TWO_STEP
 CFLAGS = -pipe -fPIC -c -Wall -fshort-wchar -O1 -fexceptions -std=c++11 $(BUILD_DEF) -I$(INC)  
 #CFLAGS=-c -Wall  -O1 -I$(INC) -std=c++11
 
 #LDFLAGS= -lpthread -lboost_system -lboost_chrono -lboost_thread -lboost_filesystem  -L../../../lib -lgk-lib-$(LIBVER)
-LIBS = -lpthread -lboost_system -lboost_chrono -lboost_thread -lboost_filesystem -ldl  -L../../../lib -lgk-lib-$(LIBVER)
+LIBS = -lpthread -lboost_system -lboost_chrono -lboost_thread -lboost_filesystem -ldl  -L../lib -lgk-lib-$(LIBVER)
 LDFLAGS = 
 
 EXECUTABLE=cpc152svc

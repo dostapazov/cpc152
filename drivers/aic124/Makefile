@@ -1,7 +1,7 @@
 DEBUG=y
 USR=$(shell whoami)
 PWD=$(shell pwd)
-INCDIR=/home/$(USR)/sources/cpc152/include
+INCDIR=/home/$(USR)/cpc152/include
 #INCDIR=$(PWD)../../../include
 EXTRA_CFLAGS  := -I$(LDDINCDIR)
 EXTRA_CFLAGS  += -I$(INCDIR)
