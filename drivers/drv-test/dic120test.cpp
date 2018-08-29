@@ -22,7 +22,7 @@ void read_from_dic120(int fd,int rdc)
         while(bptr<eptr)
         {
          char tmstr[4096];
-         struct tm *_tm = localtime(&bptr->tmstamp.tv_sec);
+         struct tm *_tm = localtime(&bptr->tmstamp_end.tv_sec);
          strftime(tmstr,sizeof(tmstr),"%Y-%m-%d %H:%M:%S",_tm);
          printf("%s %Lu pga-%hu port %04X dlen=%u\n",tmstr, bptr->seq_number,bptr->number,(unsigned)(u_int16_t)(bptr->test_signals[1]),(unsigned)bptr->data_len);
          printf("%02X %02X %02X\n",bptr->data[0],bptr->data[1],bptr->data[2]);
