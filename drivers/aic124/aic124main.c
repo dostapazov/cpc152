@@ -9,7 +9,7 @@
 static int    major = 0;
 static int    minor = 0;
 
-char * dev_name = "aic124";
+char * name_dev = "aic124";
 static int    dev_count;
 lpaic124dev  mod_devs = NULL;
 static struct proc_dir_entry * dir_entry = NULL;
@@ -87,7 +87,7 @@ static int __init aic124_reg_device(lpaic124dev dcur,int number)
     {
 
         DBG_TRACE(KERN_DEBUG, "add cdev major %d minor %d isize = %d\n",(int)MAJOR(dcur->_cdev.dev),MINOR(dcur->_cdev.dev),dcur->isize);
-        snprintf(proc_name,sizeof(proc_name),"%s_%d",dev_name,number);
+        snprintf(proc_name,sizeof(proc_name),"%s_%d",name_dev,number);
         dcur->proc_entry = proc_create_data(proc_name,S_IFREG | S_IRUGO,dir_entry,&proc_fops,dcur);
         if(!dcur->proc_entry)
         {
@@ -243,12 +243,12 @@ static int __init aic124_reg_module(void)
     if(major)
     {
         dev    = MKDEV(major,minor);
-        result = register_chrdev_region(dev,dev_count,dev_name);
+        result = register_chrdev_region(dev,dev_count,name_dev);
 
     }
     else
     {
-        result = alloc_chrdev_region(&dev,minor,dev_count,dev_name);
+        result = alloc_chrdev_region(&dev,minor,dev_count,name_dev);
         major = MAJOR(dev);
     }
     if(result)
@@ -256,7 +256,7 @@ static int __init aic124_reg_module(void)
     else
     {
         DBG_TRACE(KERN_INFO, "register success major %d\n",major) ;
-        dir_entry  = proc_mkdir(dev_name,NULL);
+        dir_entry  = proc_mkdir(name_dev,NULL);
         if(dev_count)
         {
             nsize = sizeof(struct _aic124dev)*dev_count;
@@ -329,7 +329,7 @@ static void __exit aic124_release_device(lpaic124dev  dcur)
     if(dcur->proc_entry)
     {
         DBG_TRACE(KERN_DEBUG"\t","remove proc entry \n");
-        snprintf(proc_name,sizeof(proc_name),"%s_%d",dev_name,dcur->dev_number);
+        snprintf(proc_name,sizeof(proc_name),"%s_%d",name_dev,dcur->dev_number);
         remove_proc_entry(proc_name,dir_entry);
 
     }
@@ -359,7 +359,7 @@ static void __exit aic124_exit(void)
         ++dcur;
     }
     //if(dir_entry) proc_remove(dir_entry);
-    if(dir_entry) remove_proc_entry(dev_name,NULL);
+    if(dir_entry) remove_proc_entry(name_dev,NULL);
     if(mod_devs ) kfree(mod_devs);
 
 
